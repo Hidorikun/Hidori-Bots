@@ -1,0 +1,4 @@
+venv
+common/credentials.txt
+game-finder/receivers.txt
+game-finder/html_message.html
