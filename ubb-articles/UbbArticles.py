@@ -1,6 +1,6 @@
 from common.Bot import Bot
 from common.Email import Email
-from crawlers.IndieGameBundlesCrawler import IndieGameBundlesCrawler
+from crawlers.CSUBBCrawler import CSUBBCrawler
 
 
 def get_receivers():
@@ -15,26 +15,25 @@ if __name__ == '__main__':
     bot = Bot()
     bot.add_receivers(get_receivers())
 
-    crawler = IndieGameBundlesCrawler()
+    crawler = CSUBBCrawler()
     articles_published_today = crawler.crawl()
 
     email = Email()
 
     for article in articles_published_today:
+        imgTag = '<img style="width:100%;"src={}>'.format(article['img']) if article['img'] != '' else ''
         email.html_content = '''
             <html>
                 <body>
-                    <img style="width:100%;"src={img}>
+                    {imgTag}
                     <div> <a href={url}> {desc} </a></div>
                 </body>
             </html>
         '''.format(
-            img=article['img'],
+            imgTag=imgTag,
             desc=article['description'],
             url=article['url']
         )
-        with open('game-finder/html_message.html', 'w') as file:
-            file.write(email.html_content)
 
         email.plain_content = article['description']
-        bot.send_email(article['title'].contents[0], email)
+        bot.send_email(article['title'], email)

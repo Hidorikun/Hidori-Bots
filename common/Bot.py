@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 
 class Bot:
 
-    def __init__(self, credentials_file='common/credentials.txt'):
+    def __init__(self, credentials_file='../common/credentials.txt'):
         self.__email_address, self.__password = self.__read_credentials(credentials_file)
         self.__receivers = set()
 
