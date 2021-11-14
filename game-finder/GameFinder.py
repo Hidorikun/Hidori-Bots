@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../')
 from common.Bot import Bot
 from common.Email import Email
 from crawlers.IndieGameBundlesCrawler import IndieGameBundlesCrawler
@@ -17,6 +19,11 @@ if __name__ == '__main__':
 
     crawler = IndieGameBundlesCrawler()
     articles_published_today = crawler.crawl()
+    
+    if len(articles_published_today) == 0:
+        print('No articles were published today.')
+    else: 
+        print(articles_published_today)
 
     email = Email()
 
