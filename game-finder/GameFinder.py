@@ -40,8 +40,10 @@ if __name__ == '__main__':
             desc=article['description'],
             url=article['url']
         )
-        with open('game-finder/html_message.html', 'w') as file:
+
+        with open('html_message.html', 'w') as file:
             file.write(email.html_content)
 
         email.plain_content = article['description']
-        bot.send_email(article['title'].contents[0], email)
+        bot.send_email(article['title'], email)
+
